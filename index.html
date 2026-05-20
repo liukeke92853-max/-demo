@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>团长申请自动处理插件 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="workspace">
+      <section class="dialog-shell" aria-label="处理团长申请">
+        <header class="dialog-header">
+          <h1>处理团长申请</h1>
+          <button class="ghost-icon" type="button" aria-label="关闭">×</button>
+        </header>
+
+        <nav class="tabs" aria-label="申请状态">
+          <button class="tab is-active" type="button">待处理</button>
+          <button class="tab" type="button">历史记录</button>
+        </nav>
+
+        <div class="notice">
+          <span class="notice-icon">i</span>
+          <span>团长提出的延长推广申请，若 3 日未审核，系统将默认拒绝</span>
+        </div>
+
+        <section class="filters" aria-label="页面原始筛选">
+          <label>
+            <span>商品信息</span>
+            <input id="productSearch" type="search" placeholder="请输入商品名称或ID" />
+          </label>
+          <label class="leader-native">
+            <span>团长信息</span>
+            <input id="leaderSearch" type="search" placeholder="请输入团长名称或ID" />
+          </label>
+          <button id="pageQuery" class="primary-outline" type="button">查询</button>
+          <button id="pageReset" class="plain-button" type="button">重置</button>
+        </section>
+
+        <section class="table-card" aria-label="团长申请列表">
+          <div class="table-grid table-head">
+            <strong>商品信息</strong>
+            <strong>团长信息</strong>
+            <strong>申请信息</strong>
+            <strong>活动信息</strong>
+            <strong>操作</strong>
+          </div>
+          <div id="requestTable" class="table-body"></div>
+        </section>
+
+        <footer class="pagination" aria-label="分页">
+          <span id="pageTotal">共 0 条</span>
+          <div class="pager-controls">
+            <button id="prevPage" type="button" aria-label="上一页">‹</button>
+            <div id="pageButtons" class="page-buttons"></div>
+            <button id="nextPage" type="button" aria-label="下一页">›</button>
+          </div>
+        </footer>
+      </section>
+
+      <aside class="plugin-panel" aria-label="自动审核插件">
+        <header class="plugin-header">
+          <div>
+            <p class="eyebrow">插件 Demo</p>
+            <h2>团长申请助手</h2>
+          </div>
+          <span id="runState" class="state-pill">待扫描</span>
+        </header>
+
+        <section class="panel-section">
+          <h3>目标规则</h3>
+          <label class="field">
+            <span>团长名称或 ID</span>
+            <input id="pluginLeader" type="search" placeholder="例如：史莱克联盟 / L1001" />
+          </label>
+          <label class="field">
+            <span>申请类型</span>
+            <select id="pluginType">
+              <option value="延长合作时间">延长合作时间</option>
+              <option value="全部">全部可识别类型</option>
+            </select>
+          </label>
+          <div class="field-grid">
+            <label class="field">
+              <span>处理范围</span>
+              <select id="pluginScope">
+                <option value="current">当前页</option>
+                <option value="all">全部分页</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>单次上限</span>
+              <input id="pluginLimit" type="number" min="1" max="50" value="8" />
+            </label>
+          </div>
+          <label class="field">
+            <span>延长日期不超过</span>
+            <input id="pluginDateLimit" type="date" value="2027-12-31" />
+          </label>
+        </section>
+
+        <section class="panel-section">
+          <h3>扫描结果</h3>
+          <div class="metrics">
+            <div>
+              <span id="metricMatched">0</span>
+              <small>命中</small>
+            </div>
+            <div>
+              <span id="metricApproved">0</span>
+              <small>已通过</small>
+            </div>
+            <div>
+              <span id="metricSkipped">0</span>
+              <small>跳过</small>
+            </div>
+          </div>
+          <div id="scanList" class="scan-list" aria-live="polite"></div>
+        </section>
+
+        <section class="panel-actions">
+          <button id="scanButton" class="primary-button" type="button">扫描目标数据</button>
+          <button id="approveButton" class="success-button" type="button" disabled>自动通过</button>
+          <button id="stopButton" class="danger-button" type="button" disabled>停止</button>
+        </section>
+
+        <section class="panel-section log-section">
+          <div class="section-title-row">
+            <h3>执行日志</h3>
+            <button id="clearLog" class="text-button" type="button">清空</button>
+          </div>
+          <div id="logList" class="log-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
