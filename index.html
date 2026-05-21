@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <header class="browser-toolbar" aria-label="浏览器扩展区域模拟">
+      <div class="address-bar"></div>
+      <div class="toolbar-actions">
+        <button class="toolbar-icon star-icon" type="button" aria-label="收藏"></button>
+        <div class="extension-entry">
+          <button class="extension-icon" type="button" aria-label="团长申请助手"></button>
+          <section class="extension-card" aria-label="团长申请助手执行状态">
+            <div class="extension-card-header">
+              <strong>团长申请助手</strong>
+              <span>运行中</span>
+            </div>
+            <dl class="extension-stats">
+              <div>
+                <dt>最新执行时间</dt>
+                <dd id="extensionLatestTime">2026/05/21 09:00</dd>
+              </div>
+              <div>
+                <dt>执行任务数量</dt>
+                <dd id="extensionTaskCount">24</dd>
+              </div>
+              <div>
+                <dt>执行频率</dt>
+                <dd>6h一次</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+        <span class="toolbar-divider"></span>
+        <span class="profile-badge">柯</span>
+        <button class="update-pill" type="button">重新启动即可更新</button>
+        <button class="more-icon" type="button" aria-label="更多"></button>
+      </div>
+    </header>
+
     <main class="workspace">
       <section class="dialog-shell" aria-label="处理团长申请">
         <header class="dialog-header">
@@ -57,81 +91,6 @@
           </div>
         </footer>
       </section>
-
-      <aside class="plugin-panel" aria-label="自动审核插件">
-        <header class="plugin-header">
-          <div>
-            <p class="eyebrow">插件 Demo</p>
-            <h2>团长申请助手</h2>
-          </div>
-          <span id="runState" class="state-pill">待扫描</span>
-        </header>
-
-        <section class="panel-section">
-          <h3>目标规则</h3>
-          <label class="field">
-            <span>团长名称或 ID</span>
-            <input id="pluginLeader" type="search" placeholder="例如：史莱克联盟 / L1001" />
-          </label>
-          <label class="field">
-            <span>申请类型</span>
-            <select id="pluginType">
-              <option value="延长合作时间">延长合作时间</option>
-              <option value="全部">全部可识别类型</option>
-            </select>
-          </label>
-          <div class="field-grid">
-            <label class="field">
-              <span>处理范围</span>
-              <select id="pluginScope">
-                <option value="current">当前页</option>
-                <option value="all">全部分页</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>单次上限</span>
-              <input id="pluginLimit" type="number" min="1" max="50" value="8" />
-            </label>
-          </div>
-          <label class="field">
-            <span>延长日期不超过</span>
-            <input id="pluginDateLimit" type="date" value="2027-12-31" />
-          </label>
-        </section>
-
-        <section class="panel-section">
-          <h3>扫描结果</h3>
-          <div class="metrics">
-            <div>
-              <span id="metricMatched">0</span>
-              <small>命中</small>
-            </div>
-            <div>
-              <span id="metricApproved">0</span>
-              <small>已通过</small>
-            </div>
-            <div>
-              <span id="metricSkipped">0</span>
-              <small>跳过</small>
-            </div>
-          </div>
-          <div id="scanList" class="scan-list" aria-live="polite"></div>
-        </section>
-
-        <section class="panel-actions">
-          <button id="scanButton" class="primary-button" type="button">扫描目标数据</button>
-          <button id="approveButton" class="success-button" type="button" disabled>自动通过</button>
-          <button id="stopButton" class="danger-button" type="button" disabled>停止</button>
-        </section>
-
-        <section class="panel-section log-section">
-          <div class="section-title-row">
-            <h3>执行日志</h3>
-            <button id="clearLog" class="text-button" type="button">清空</button>
-          </div>
-          <div id="logList" class="log-list"></div>
-        </section>
-      </aside>
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
